@@ -1,0 +1,15 @@
+local LIN = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Jonatanortiz2/Johnny-Test/master/UiLib.lua")))()
+local WIN = LIN:CreateWindow("Options")
+local RR = WIN:CreateFolder("Choose What kind Of Aimbot")
+
+RR:Button("Lock-Target",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonatanortiz20/Aimbot/main/Aimbot-LockTarget"))();
+end)
+
+RR:Button("Swap-Target",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonatanortiz20/Aimbot/main/Aimbot-SwapTarget"))();
+end)
+
+if game.CreatorId == 113657341 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonatanortiz20/Aimbot/main/Aimbot-Lock-Knife"))();
+end
