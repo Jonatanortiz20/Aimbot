@@ -420,17 +420,6 @@ local GetYes = function()
             end
         end
     )
-    pcall(
-        function()
-            gonchang.Character:FindFirstChild("Humanoid").Died:Connect(
-                function()
-                    Update()
-                    wait()
-                    Update()
-                end
-            )
-        end
-    )
     return gonchang
 end
 
