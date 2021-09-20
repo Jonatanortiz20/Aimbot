@@ -58,11 +58,13 @@ local IgnoreList = {}
 local maxDistanceeee = 600
 local boxes
 local names
+local Players = game:GetService("Players")
+local Player = game:GetService("Players").LocalPlayer
 local checkkFar = true
 local elmouseup = "Button2Up"
 local CircLeCol = Color3.fromRGB(220, 53, 53)
 local elmousedown = "Button2Down"
-local allespcolor = Color3.fromRGB(220, 53, 53)
+local allespcolor = Color3.fromRGB(53,220,53)
 local TeamCheck = false
 local ButtonOn = false
 local lp = safe.Players.LocalPlayer
@@ -72,10 +74,7 @@ local tracers = true
 local CreateTextboxes = true
 local names = true
 local allesp = true
-local targesp
-local allespcolor = Color3.fromRGB(220, 53, 53)
-local allnotargetespcolor
-local targetespcolor
+local targetespcolor = Color3.fromRGB(220, 53, 53)
 local ESPTeamCheck = false
 local ESPTeamColor = false
 function zigzag(X)
@@ -175,7 +174,7 @@ local FirstPerson = function()
     return plr, dist
 end
 
-local function getClosestPlayerToCursor() --[nonamecall]
+local function getClosestPlayerToCursor() [nonamecall]
     local closestPlayer = nil
     local shortestDistance = math.huge
 
@@ -323,6 +322,20 @@ local ThirdPerson = function()
     return plr, dist
 end
 
+local MyTarget = function()
+    local Target = nil
+    local TargetName = nil
+    pcall(function()
+        TargetName = Players.LocalPlayer.PlayerGui.ScreenGui.UI.Target.TargetText.Text
+    end)
+    if TargetName then
+        if Players:FindFirstChild(TargetName) then
+            Target = Players:FindFirstChild(TargetName)
+        end
+    end
+    return Target
+end
+
 spawn(
     function()
         local Circle = Drawing.new("Circle")
@@ -365,26 +378,8 @@ aimbot:Bind(
     function(brrr)
         if ButtonOn == false then
             ButtonOn = true
-            game.StarterGui:SetCore(
-                "SendNotification",
-                {
-                    Title = "Aimbot Is:",
-                    Text = "On",
-                    Icon = "rbxassetid://3000511663",
-                    Duration = 5
-                }
-            )
         else
             ButtonOn = false
-            game.StarterGui:SetCore(
-                "SendNotification",
-                {
-                    Title = "Aimbot Is:",
-                    Text = "Off",
-                    Icon = "rbxassetid://3000511663",
-                    Duration = 5
-                }
-            )
         end
     end
 )
@@ -531,6 +526,17 @@ espsettings:Toggle(
     end
 )
 
+espsettings:Bind(
+    "Esp Toggle",
+    Enum.KeyCode.T,
+    function(brrr)
+        if allesp == true then
+            allesp = false
+        else
+            allesp = true
+        end
+    end
+)
 espsettings:Toggle(
     "Tracers",
     function(bap)
@@ -554,7 +560,7 @@ espsettings:Toggle(
 
 espsettings:ColorPicker(
     "ESP Color",
-    Color3.fromRGB(255, 0, 0),
+    Color3.fromRGB(53, 220, 53),
     function(color)
         allespcolor = color
     end
@@ -577,7 +583,6 @@ espsettings:Toggle(
 function ESPText(part)
     local name = Drawing.new("Text")
     name.Text = part.Parent.Name
-    name.Color = Color3.fromRGB(255, 0, 0)
     name.Position = ESPPOS(part)
     name.Size = 20.00
     name.Outline = true
@@ -596,10 +601,7 @@ function ESPText(part)
                             if allesp == true then
                                 if names == true then
                                     if ESPTeamCheck == true then
-                                        if
-                                            game.Players:FindFirstChild(part.Parent.Name).TeamColor ~=
-                                                safe.Players.LocalPlayer.TeamColor
-                                         then
+                                        if game.Players:FindFirstChild(part.Parent.Name).TeamColor ~= safe.Players.LocalPlayer.TeamColor then
                                             name.Position = ESPPOS(part)
                                             local _, screen =
                                                 Work.CurrentCamera:WorldToViewportPoint(part.Position)
@@ -629,11 +631,14 @@ function ESPText(part)
                                             name.Visible = false
                                         end
                                         if ESPTeamColor == true then
-                                            name.Color =
-                                                game.Players:FindFirstChild(part.Parent.Name).TeamColor.Color
+                                            name.Color = game.Players:FindFirstChild(part.Parent.Name).TeamColor.Color
                                         else
                                             if allespcolor then
-                                                name.Color = allespcolor
+                                                if game.Players:FindFirstChild(part.Parent.Name).Name == MyTarget().Name then
+                                                    name.Color = targetespcolor
+                                                else
+                                                    name.Color = allespcolor
+                                                end
                                             end
                                         end
                                     end
@@ -685,7 +690,6 @@ function ESPLine(part)
     Line.To = ESPPOS(part)
     Line.Thickness = 2
     Line.Transparency = 1
-    Line.Color = Color3.fromRGB(255, 0, 0)
     local runService = game:GetService("RunService")
     local Stepped
     local ReadyToDisc = false
@@ -736,7 +740,11 @@ function ESPLine(part)
                                                 game.Players:FindFirstChild(part.Parent.Name).TeamColor.Color
                                         else
                                             if allespcolor then
-                                                Line.Color = allespcolor
+                                                if game.Players:FindFirstChild(part.Parent.Name).Name == MyTarget().Name then
+                                                    Line.Color = targetespcolor
+                                                else
+                                                    Line.Color = allespcolor
+                                                end
                                             end
                                         end
                                     end
@@ -787,7 +795,6 @@ function ESPSquare(part)
     Top.Visible = false
     Top.From = Vector2.new(0, 0)
     Top.To = Vector2.new(200, 200)
-    Top.Color = Color3.fromRGB(255, 0, 0)
     Top.Thickness = 2
     Top.Transparency = 1
 
@@ -795,7 +802,6 @@ function ESPSquare(part)
     Bottom.Visible = false
     Bottom.From = Vector2.new(0, 0)
     Bottom.To = Vector2.new(200, 200)
-    Bottom.Color = Color3.fromRGB(255, 0, 0)
     Bottom.Thickness = 2
     Bottom.Transparency = 1
 
@@ -811,7 +817,6 @@ function ESPSquare(part)
     Right.Visible = false
     Right.From = Vector2.new(0, 0)
     Right.To = Vector2.new(200, 200)
-    Right.Color = Color3.fromRGB(255, 0, 0)
     Right.Thickness = 2
     Right.Transparency = 1
     local ReadyToDisc = false
@@ -963,10 +968,17 @@ function ESPSquare(part)
                                                 Right.Color = part.TeamColor.Color
                                             else
                                                 if allespcolor then
-                                                    Top.Color = allespcolor
-                                                    Left.Color = allespcolor
-                                                    Bottom.Color = allespcolor
-                                                    Right.Color = allespcolor
+                                                    if part.Name == MyTarget().Name then
+                                                        Top.Color = targetespcolor
+                                                        Left.Color = targetespcolor
+                                                        Bottom.Color = targetespcolor
+                                                        Right.Color = targetespcolor
+                                                    else
+                                                        Top.Color = allespcolor
+                                                        Left.Color = allespcolor
+                                                        Bottom.Color = allespcolor
+                                                        Right.Color = allespcolor
+                                                    end
                                                 end
                                             end
                                         else
@@ -1297,133 +1309,108 @@ spawn(
             function()
                 if aimbotwait < 0.01 or aimbotwait == 0 then
                     if ButtonOn == true and hitp and GetYes() then
-                        if aimboton == true then
-                            pcall(
-                                function()
-                                    local a = Work.CurrentCamera
-                                    function wrld(b)
-                                        return a:WorldToScreenPoint(b)
-                                    end
-                                    local aimAt1
-                                    local g, onscreen =
-                                        wrld(GetYes().Character:FindFirstChild(hitp).Position)
-                                    local Head = GetYes().Character:FindFirstChild(hitp)
-                                    local Velocityx = Head.Velocity.X
-                                    local Velocityy = Head.Velocity.Y
-                                    local Velocityz = Head.Velocity.Z
-                                    local aimsss
-                                    if localPlayer:DistanceFromCharacter(Head.Position) <= 20 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 1 and 1) or (Velocityx <= -1 and -1) or 0,
-                                                (Velocityy >= 1 and 1) or (Velocityy <= -1 and -1) or 0,
-                                                (Velocityz >= 1 and 1) or (Velocityz <= -1 and -1) or 0
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) >= 20 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 2.5 and 2.5) or
-                                                    (Velocityx <= -2.5 and -2.5) or
-                                                    0,
-                                                (Velocityy >= 2.5 and 2.5) or
-                                                    (Velocityy <= -2.5 and -2.5) or
-                                                    0,
-                                                (Velocityz >= 2.5 and 2.5) or
-                                                    (Velocityz <= -2.5 and -2.5) or
-                                                    0
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) <= 40 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 3 and 3) or (Velocityx <= -3 and -3) or 3,
-                                                (Velocityy >= 3 and 3) or (Velocityy <= -3 and -3) or 3,
-                                                (Velocityz >= 3 and 3) or (Velocityz <= -3 and -3) or 3
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) >= 40 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 3.5 and 3.5) or
-                                                    (Velocityx <= -3.5 and -3.5) or
-                                                    3.5,
-                                                (Velocityy >= 3.5 and 3.5) or
-                                                    (Velocityy <= -3.5 and -3.5) or
-                                                    3.5,
-                                                (Velocityz >= 3.5 and 3.5) or
-                                                    (Velocityz <= -3.5 and -3.5) or
-                                                    3.5
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) <= 60 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 4 and 4) or (Velocityx <= -4 and -4) or 4,
-                                                (Velocityy >= 4 and 4) or (Velocityy <= -4 and -4) or 4,
-                                                (Velocityz >= 4 and 4) or (Velocityz <= -4 and -4) or 4
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) >= 60 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 4.5 and 4.5) or
-                                                    (Velocityx <= -4.5 and -4.5) or
-                                                    4.5,
-                                                (Velocityy >= 4.5 and 4.5) or
-                                                    (Velocityy <= -4.5 and -4.5) or
-                                                    4.5,
-                                                (Velocityz >= 4.5 and 4.5) or
-                                                    (Velocityz <= -4.5 and -4.5) or
-                                                    4.5
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) <= 80 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 5 and 5) or (Velocityx <= -5 and -5) or 5,
-                                                (Velocityy >= 5 and 5) or (Velocityy <= -5 and -5) or 5,
-                                                (Velocityz >= 5 and 5) or (Velocityz <= -5 and -5) or 5
-                                            )
-                                    elseif localPlayer:DistanceFromCharacter(Head.Position) >= 80 then
-                                        aimsss =
-                                            Head.Position +
-                                            Vector3.new(
-                                                (Velocityx >= 5.5 and 5.5) or
-                                                    (Velocityx <= -5.5 and -5.5) or
-                                                    5.5,
-                                                (Velocityy >= 5.5 and 5.5) or
-                                                    (Velocityy <= -5.5 and -5.5) or
-                                                    5.5,
-                                                (Velocityz >= 5.5 and 5.5) or
-                                                    (Velocityz <= -5.5 and -5.5) or
-                                                    5.5
-                                            )
-                                    end
-                                    return mousemoverel(
-                                        wrld(aimsss).X - wrld(mouse.Hit.p).X + aimbotxpos,
-                                        wrld(aimsss).Y - wrld(mouse.Hit.p).Y + aimbotypos
-                                    )
+                    if aimboton == true then
+                        pcall(
+                            function()
+                                local a = Work.CurrentCamera
+                                function wrld(b)
+                                    return a:WorldToScreenPoint(b)
                                 end
-                            )
-                        end
+                                local aimAt1
+                                local g, onscreen =
+                                    wrld(GetYes().Character:FindFirstChild(hitp).Position)
+                                local Head = GetYes().Character:FindFirstChild(hitp)
+                                local Velocityx = Head.Velocity.X
+                                local Velocityy = Head.Velocity.Y
+                                local Velocityz = Head.Velocity.Z
+                                local aimsss
+                                if localPlayer:DistanceFromCharacter(Head.Position) <= 20 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 1 and 1) or (Velocityx <= -1 and -1) or 0,
+                                            (Velocityy >= 1 and 1) or (Velocityy <= -1 and -1) or 0,
+                                            (Velocityz >= 1 and 1) or (Velocityz <= -1 and -1) or 0
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 20 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 2.5 and 2.5) or (Velocityx <= -2.5 and -2.5) or
+                                                0,
+                                            (Velocityy >= 2.5 and 2.5) or (Velocityy <= -2.5 and -2.5) or
+                                                0,
+                                            (Velocityz >= 2.5 and 2.5) or (Velocityz <= -2.5 and -2.5) or
+                                                0
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 40 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 3 and 3) or (Velocityx <= -3 and -3) or 3,
+                                            (Velocityy >= 3 and 3) or (Velocityy <= -3 and -3) or 3,
+                                            (Velocityz >= 3 and 3) or (Velocityz <= -3 and -3) or 3
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 40 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 3.5 and 3.5) or (Velocityx <= -3.5 and -3.5) or
+                                                3.5,
+                                            (Velocityy >= 3.5 and 3.5) or (Velocityy <= -3.5 and -3.5) or
+                                                3.5,
+                                            (Velocityz >= 3.5 and 3.5) or (Velocityz <= -3.5 and -3.5) or
+                                                3.5
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 60 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 4 and 4) or (Velocityx <= -4 and -4) or 4,
+                                            (Velocityy >= 4 and 4) or (Velocityy <= -4 and -4) or 4,
+                                            (Velocityz >= 4 and 4) or (Velocityz <= -4 and -4) or 4
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 60 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 4.5 and 4.5) or (Velocityx <= -4.5 and -4.5) or
+                                                4.5,
+                                            (Velocityy >= 4.5 and 4.5) or (Velocityy <= -4.5 and -4.5) or
+                                                4.5,
+                                            (Velocityz >= 4.5 and 4.5) or (Velocityz <= -4.5 and -4.5) or
+                                                4.5
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 80 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 5 and 5) or (Velocityx <= -5 and -5) or 5,
+                                            (Velocityy >= 5 and 5) or (Velocityy <= -5 and -5) or 5,
+                                            (Velocityz >= 5 and 5) or (Velocityz <= -5 and -5) or 5
+                                        )
+                                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 80 then
+                                    aimsss =
+                                        Head.Position +
+                                        Vector3.new(
+                                            (Velocityx >= 5.5 and 5.5) or (Velocityx <= -5.5 and -5.5) or
+                                                5.5,
+                                            (Velocityy >= 5.5 and 5.5) or (Velocityy <= -5.5 and -5.5) or
+                                                5.5,
+                                            (Velocityz >= 5.5 and 5.5) or (Velocityz <= -5.5 and -5.5) or
+                                                5.5
+                                        )
+                                end
+                                return mousemoverel(
+                                    wrld(aimsss).X - wrld(mouse.Hit.p).X + aimbotxpos,
+                                    wrld(aimsss).Y - wrld(mouse.Hit.p).Y + aimbotypos
+                                )
+                            end
+                        )
                     end
                 end
+                end
             end
-        )
-    end
-)
-spawn(
-    function()
-        game.StarterGui:SetCore(
-            "SendNotification",
-            {
-                Title = "Aimbot Loaded! :",
-                Text = (tick() - CurrentExecution .. " Seconds"),
-                Icon = "rbxassetid://3000511663",
-                Duration = 5
-            }
         )
     end
 )
