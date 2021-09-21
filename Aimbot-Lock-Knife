@@ -1563,6 +1563,7 @@ ssilent:Bind(
                 mouse1press()
                 wait(.34)
                 game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(aimsss,0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                mouse1release()
             end)
         end)
     end
