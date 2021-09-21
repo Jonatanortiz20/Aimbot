@@ -1472,97 +1472,85 @@ ssilent:Bind(
     function(brrr)
         spawn(function()
             pcall(function()
-                local a = Work.CurrentCamera
-                function wrld(b)
-                    return a:WorldToScreenPoint(b)
-                end
-                local aimAt1
-                local g, onscreen = wrld(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position)
-                local Head = getClosestPlayerToCursor().Character:FindFirstChild(hitp)
-                local Velocityx = Head.Velocity.X
-                local Velocityy = Head.Velocity.Y
-                local Velocityz = Head.Velocity.Z
-                local aimsss
-                if localPlayer:DistanceFromCharacter(Head.Position) <= 20 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 1 and 1) or (Velocityx <= -1 and -1) or 0,
-                            (Velocityy >= 1 and 1) or (Velocityy <= -1 and -1) or 0,
-                            (Velocityz >= 1 and 1) or (Velocityz <= -1 and -1) or 0
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 20 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 2.5 and 2.5) or (Velocityx <= -2.5 and -2.5) or
-                                0,
-                            (Velocityy >= 2.5 and 2.5) or (Velocityy <= -2.5 and -2.5) or
-                                0,
-                            (Velocityz >= 2.5 and 2.5) or (Velocityz <= -2.5 and -2.5) or
-                                0
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 40 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 3 and 3) or (Velocityx <= -3 and -3) or 3,
-                            (Velocityy >= 3 and 3) or (Velocityy <= -3 and -3) or 3,
-                            (Velocityz >= 3 and 3) or (Velocityz <= -3 and -3) or 3
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 40 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 3.5 and 3.5) or (Velocityx <= -3.5 and -3.5) or
-                                3.5,
-                            (Velocityy >= 3.5 and 3.5) or (Velocityy <= -3.5 and -3.5) or
-                                3.5,
-                            (Velocityz >= 3.5 and 3.5) or (Velocityz <= -3.5 and -3.5) or
-                                3.5
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 60 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 4 and 4) or (Velocityx <= -4 and -4) or 4,
-                            (Velocityy >= 4 and 4) or (Velocityy <= -4 and -4) or 4,
-                            (Velocityz >= 4 and 4) or (Velocityz <= -4 and -4) or 4
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 60 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 4.5 and 4.5) or (Velocityx <= -4.5 and -4.5) or
-                                4.5,
-                            (Velocityy >= 4.5 and 4.5) or (Velocityy <= -4.5 and -4.5) or
-                                4.5,
-                            (Velocityz >= 4.5 and 4.5) or (Velocityz <= -4.5 and -4.5) or
-                                4.5
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) <= 80 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 5 and 5) or (Velocityx <= -5 and -5) or 5,
-                            (Velocityy >= 5 and 5) or (Velocityy <= -5 and -5) or 5,
-                            (Velocityz >= 5 and 5) or (Velocityz <= -5 and -5) or 5
-                        )
-                elseif localPlayer:DistanceFromCharacter(Head.Position) >= 80 then
-                    aimsss =
-                        Head.Position +
-                        Vector3.new(
-                            (Velocityx >= 5.5 and 5.5) or (Velocityx <= -5.5 and -5.5) or
-                                5.5,
-                            (Velocityy >= 5.5 and 5.5) or (Velocityy <= -5.5 and -5.5) or
-                                5.5,
-                            (Velocityz >= 5.5 and 5.5) or (Velocityz <= -5.5 and -5.5) or
-                                5.5
-                        )
-                end
                 mouse1press()
-                wait(.34)
-                game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(aimsss,0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                wait(.31)
+                if localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 20 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 1 and 1) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -1 and -1) or 0,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 1 and 1) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -1 and -1) or 0,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 1 and 1) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -1 and -1) or 0
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) >= 20 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 2.5 and 2.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -2.5 and -2.5) or
+                                0,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 2.5 and 2.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -2.5 and -2.5) or
+                                0,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 2.5 and 2.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -2.5 and -2.5) or
+                                0
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 40 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 3 and 3) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -3 and -3) or 3,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 3 and 3) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -3 and -3) or 3,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 3 and 3) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -3 and -3) or 3
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) >= 40 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 3.5 and 3.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -3.5 and -3.5) or
+                                3.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 3.5 and 3.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -3.5 and -3.5) or
+                                3.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 3.5 and 3.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -3.5 and -3.5) or
+                                3.5
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 60 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 4 and 4) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -4 and -4) or 4,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 4 and 4) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -4 and -4) or 4,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 4 and 4) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -4 and -4) or 4
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) >= 60 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 4.5 and 4.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -4.5 and -4.5) or
+                                4.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 4.5 and 4.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -4.5 and -4.5) or
+                                4.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 4.5 and 4.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -4.5 and -4.5) or
+                                4.5
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 80 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 5 and 5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -5 and -5) or 5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 5 and 5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -5 and -5) or 5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 5 and 5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -5 and -5) or 5
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                elseif localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) >= 80 then
+                    game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
+                        (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
+                        Vector3.new(
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X >= 5.5 and 5.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.X <= -5.5 and -5.5) or
+                                5.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y >= 5.5 and 5.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Y <= -5.5 and -5.5) or
+                                5.5,
+                            (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z >= 5.5 and 5.5) or (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Velocity.Z <= -5.5 and -5.5) or
+                                5.5
+                        )),0,CFrame.new(Vector3.new(0, 0, 0), Vector3.new(-0, -0, -1)))
+                end
                 mouse1release()
             end)
         end)
