@@ -1473,7 +1473,7 @@ ssilent:Bind(
         spawn(function()
             pcall(function()
                 mouse1press()
-                wait(.31)
+                wait(.34)
                 if localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 20 then
                     game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
                         (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
