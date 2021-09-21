@@ -1470,6 +1470,7 @@ ssilent:Bind(
     "Silent Aim",
     Enum.KeyCode.R,
     function(brrr)
+	if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife then
         spawn(function()
             pcall(function()
                 mouse1press()
@@ -1554,5 +1555,6 @@ ssilent:Bind(
                 mouse1release()
             end)
         end)
+    end
     end
 )
