@@ -1470,6 +1470,13 @@ ssilent:Bind(
     "Silent Aim",
     Enum.KeyCode.R,
     function(brrr)
+    	pcall(function()
+	for i,v in pairs(Player.Backpack:GetChildren()) do
+                if v:IsA("Tool") and v.Name == "Knife" then
+                    Player.Character.Humanoid:EquipTool(v)
+                end
+            end
+	end)
 	if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife then
         spawn(function()
             pcall(function()
