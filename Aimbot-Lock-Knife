@@ -693,7 +693,11 @@ function ESPText(part)
                                             local _, screen =
                                                 Work.CurrentCamera:WorldToViewportPoint(part.Position)
                                             if screen then
-                                                name.Visible = true
+                                                if localPlayer:DistanceFromCharacter(part.Position) <= 1200 then
+                                                    name.Visible = true
+                                                else
+                                                    name.Visible = false
+                                                end
                                             else
                                                 name.Visible = false
                                             end
@@ -713,7 +717,11 @@ function ESPText(part)
                                         local _, screen =
                                             Work.CurrentCamera:WorldToViewportPoint(part.Position)
                                         if screen then
-                                            name.Visible = true
+                                            if localPlayer:DistanceFromCharacter(part.Position) <= 1200 then
+                                                name.Visible = true
+                                            else
+                                                name.Visible = false
+                                            end
                                         else
                                             name.Visible = false
                                         end
@@ -798,7 +806,11 @@ function ESPLine(part)
                                             local _, screen =
                                                 Work.CurrentCamera:WorldToViewportPoint(part.Position)
                                             if screen then
-                                                Line.Visible = true
+                                                if localPlayer:DistanceFromCharacter(part.Position) <= 1200 then
+                                                    Line.Visible = true
+                                                else
+                                                    Line.Visible = false
+                                                end
                                             else
                                                 Line.Visible = false
                                             end
@@ -818,7 +830,11 @@ function ESPLine(part)
                                         local _, screen =
                                             Work.CurrentCamera:WorldToViewportPoint(part.Position)
                                         if screen then
-                                            Line.Visible = true
+                                            if localPlayer:DistanceFromCharacter(part.Position) <= 1200 then
+                                                Line.Visible = true
+                                            else
+                                                Line.Visible = false
+                                            end
                                         else
                                             Line.Visible = false
                                         end
@@ -969,10 +985,17 @@ function ESPSquare(part)
 
                                                 Bottom.From = Vector2.new(BL.X, BL.Y)
                                                 Bottom.To = Vector2.new(BR.X, BR.Y)
-                                                Top.Visible = true
-                                                Left.Visible = true
-                                                Bottom.Visible = true
-                                                Right.Visible = true
+                                                if localPlayer:DistanceFromCharacter(part.Character.Head.Position) <= 1200 then
+                                                    Top.Visible = true
+                                                    Left.Visible = true
+                                                    Bottom.Visible = true
+                                                    Right.Visible = true
+                                                else
+                                                    Top.Visible = false
+                                                    Left.Visible = false
+                                                    Bottom.Visible = false
+                                                    Right.Visible = false
+                                                end
 
                                                 if ESPTeamColor == true then
                                                     Top.Color = part.TeamColor.Color
@@ -1043,10 +1066,17 @@ function ESPSquare(part)
 
                                             Bottom.From = Vector2.new(BL.X, BL.Y)
                                             Bottom.To = Vector2.new(BR.X, BR.Y)
-                                            Top.Visible = true
-                                            Left.Visible = true
-                                            Bottom.Visible = true
-                                            Right.Visible = true
+                                            if localPlayer:DistanceFromCharacter(part.Character.Head.Position) <= 1200 then
+                                                Top.Visible = true
+                                                Left.Visible = true
+                                                Bottom.Visible = true
+                                                Right.Visible = true
+                                            else
+                                                Top.Visible = false
+                                                Left.Visible = false
+                                                Bottom.Visible = false
+                                                Right.Visible = false
+                                            end
 
                                             if ESPTeamColor == true then
                                                 Top.Color = part.TeamColor.Color
