@@ -15,6 +15,7 @@ local library =
 )()
 local window = library:CreateWindow("Aimbot And Esp Modules [BETA] --By Jonatan!")
 local aimbot = window:CreateFolder("Aimbot Settings")
+local hbee = window:CreateFolder("Hitbox Externder!")
 local ssilent = window:CreateFolder("Silent Aim Settings")
 local espsettings = window:CreateFolder("Esp Settings")
 aimbot:Label(
@@ -520,6 +521,89 @@ aimbot:ColorPicker(
         CircLeCol = color
     end
 )
+
+hbee:Button("Hbe",function()
+    local TORSOSIZEEEE = Vector3.new(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.X,game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Y,game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Z)
+    local gmt = getrawmetatable(game)
+    local oldindex = gmt.__index
+    
+    if setreadonly then
+        setreadonly(gmt, false)
+    else
+        make_writeable(gmt, true)
+    end
+    
+    gmt.__index =
+        newcclosure(
+        function(t, k)
+            if type(t) == "userdata" and oldindex(t, "Name") == "HumanoidRootPart" and k == "Size" then
+                return TORSOSIZEEEE
+            end
+            return oldindex(t, k)
+        end
+    )
+    
+    if setreadonly then
+        setreadonly(gmt, true)
+    else
+        make_writeable(gmt, false)
+    end
+    
+    spawn(function()
+        while wait(8) do
+            wait()
+            for i, v in next, game:GetService("Players"):GetPlayers() do
+                if v ~= game:GetService("Players").LocalPlayer then
+                    pcall(function()
+                        if game:GetService("Workspace")[v.Name].HumanoidRootPart then
+                            v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(4,4,3)
+                            v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
+                            v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
+                        end
+                    end)
+                end
+            end
+        end
+    end)
+
+    for i, v in next,game:GetService("Players"):GetPlayers() do
+        if v ~= game.Players.LocalPlayer then
+            if v.Character:FindFirstChild("HumanoidRootPart") then
+                v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(4,4,3)
+                v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
+                v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
+            else
+                v.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(4,4,3)
+                v.Character:WaitForChild("HumanoidRootPart").Material = "ForceField"
+                v.Character:WaitForChild("HumanoidRootPart").Transparency = 0
+            end
+            v.CharacterAdded:Connect(function(ewfe)
+                    local HitboxPart = ewfe:WaitForChild("HumanoidRootPart")
+                    HitboxPart.Size = Vector3.new(4,4,3)
+                    HitboxPart.Material = "ForceField"
+                    HitboxPart.Transparency = 0
+                end
+            )
+        end
+    end
+
+    game:GetService("Players").PlayerAdded:Connect(function(plr)
+        plr.CharacterAdded:Connect(function(chur)
+            wait(3)
+            repeat
+                wait()
+            until chur:FindFirstChild("HumanoidRootPart")
+            local HitboxPartt = chur:FindFirstChild("HumanoidRootPart")
+            local HitboxPart = chur:WaitForChild("HumanoidRootPart")
+            HitboxPartt.Size = Vector3.new(4,4,3)
+            HitboxPartt.Material = "ForceField"
+            HitboxPartt.Transparency = 0
+            HitboxPart.Size = Vector3.new(4,4,3)
+            HitboxPart.Material = "ForceField"
+            HitboxPart.Transparency = 0
+        end)
+    end)
+end)
 
 espsettings:Toggle(
     "Esp",
