@@ -1594,12 +1594,14 @@ ssilent:Bind(
 	if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife then
         spawn(function()
             pcall(function()
-		mouse1press()
-		local nim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace").TheUnknownGodShots.Knife.Throw)
-		wait(0.30)
-		nim:Play(0.1, 1, 3);
-		game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh.Pitch = math.random(1100, 1300) / 1000;
-		game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh:Play();
+                local Anim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.ThrowCharge)
+                local nim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Throw)
+                Anim:Play(0.1, 1, 2);
+                wait(0.35)
+                Anim:Stop()
+                nim:Play(0.1, 1, 3);
+                game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh.Pitch = math.random(1100, 1300) / 1000;
+                game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh:Play();
                 if localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 20 then
                     game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
                         (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
