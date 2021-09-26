@@ -556,7 +556,7 @@ hbee:Button("Hbe",function()
                 if v ~= game:GetService("Players").LocalPlayer then
                     pcall(function()
                         if game:GetService("Workspace")[v.Name].HumanoidRootPart then
-                            v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,5,3)
+                            v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
                             v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
                             v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
                         end
@@ -569,17 +569,17 @@ hbee:Button("Hbe",function()
     for i, v in next,game:GetService("Players"):GetPlayers() do
         if v ~= game.Players.LocalPlayer then
             if v.Character:FindFirstChild("HumanoidRootPart") then
-                v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,5,3)
+                v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
                 v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
                 v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
             else
-                v.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(5,5,3)
+                v.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
                 v.Character:WaitForChild("HumanoidRootPart").Material = "ForceField"
                 v.Character:WaitForChild("HumanoidRootPart").Transparency = 0
             end
             v.CharacterAdded:Connect(function(ewfe)
                     local HitboxPart = ewfe:WaitForChild("HumanoidRootPart")
-                    HitboxPart.Size = Vector3.new(5,5,3)
+                    HitboxPart.Size = Vector3.new(5,4,3)
                     HitboxPart.Material = "ForceField"
                     HitboxPart.Transparency = 0
                 end
@@ -595,10 +595,10 @@ hbee:Button("Hbe",function()
             until chur:FindFirstChild("HumanoidRootPart")
             local HitboxPartt = chur:FindFirstChild("HumanoidRootPart")
             local HitboxPart = chur:WaitForChild("HumanoidRootPart")
-            HitboxPartt.Size = Vector3.new(5,5,3)
+            HitboxPartt.Size = Vector3.new(5,4,3)
             HitboxPartt.Material = "ForceField"
             HitboxPartt.Transparency = 0
-            HitboxPart.Size = Vector3.new(5,5,3)
+            HitboxPart.Size = Vector3.new(5,4,3)
             HitboxPart.Material = "ForceField"
             HitboxPart.Transparency = 0
         end)
