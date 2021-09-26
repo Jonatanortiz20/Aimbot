@@ -556,7 +556,7 @@ hbee:Button("Hbe",function()
                 if v ~= game:GetService("Players").LocalPlayer then
                     pcall(function()
                         if game:GetService("Workspace")[v.Name].HumanoidRootPart then
-                            v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
+                            v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5.5,6,3)
                             v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
                             v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
                         end
@@ -569,17 +569,17 @@ hbee:Button("Hbe",function()
     for i, v in next,game:GetService("Players"):GetPlayers() do
         if v ~= game.Players.LocalPlayer then
             if v.Character:FindFirstChild("HumanoidRootPart") then
-                v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
+                v.Character:FindFirstChild("HumanoidRootPart").Size = Vector3.new(5.5,6,3)
                 v.Character:FindFirstChild("HumanoidRootPart").Material = "ForceField"
                 v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
             else
-                v.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(5,4,3)
+                v.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(5.5,6,3)
                 v.Character:WaitForChild("HumanoidRootPart").Material = "ForceField"
                 v.Character:WaitForChild("HumanoidRootPart").Transparency = 0
             end
             v.CharacterAdded:Connect(function(ewfe)
                     local HitboxPart = ewfe:WaitForChild("HumanoidRootPart")
-                    HitboxPart.Size = Vector3.new(5,4,3)
+                    HitboxPart.Size = Vector3.new(5.5,6,3)
                     HitboxPart.Material = "ForceField"
                     HitboxPart.Transparency = 0
                 end
@@ -595,10 +595,10 @@ hbee:Button("Hbe",function()
             until chur:FindFirstChild("HumanoidRootPart")
             local HitboxPartt = chur:FindFirstChild("HumanoidRootPart")
             local HitboxPart = chur:WaitForChild("HumanoidRootPart")
-            HitboxPartt.Size = Vector3.new(5,4,3)
+            HitboxPartt.Size = Vector3.new(5.5,6,3)
             HitboxPartt.Material = "ForceField"
             HitboxPartt.Transparency = 0
-            HitboxPart.Size = Vector3.new(5,4,3)
+            HitboxPart.Size = Vector3.new(5.5,6,3)
             HitboxPart.Material = "ForceField"
             HitboxPart.Transparency = 0
         end)
@@ -1594,9 +1594,12 @@ ssilent:Bind(
 	if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife then
         spawn(function()
             pcall(function()
-                mouse1press()
-                wait(.32)
-                wait(-0.032104730606079)
+		mouse1press()
+		local nim = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace").TheUnknownGodShots.Knife.Throw)
+		wait(0.30)
+		nim:Play(0.1, 1, 3);
+		game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh.Pitch = math.random(1100, 1300) / 1000;
+		game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh:Play();
                 if localPlayer:DistanceFromCharacter(getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position) <= 20 then
                     game:GetService("ReplicatedStorage").Remotes.ThrowKnife:FireServer(
                         (getClosestPlayerToCursor().Character:FindFirstChild(hitp).Position +
