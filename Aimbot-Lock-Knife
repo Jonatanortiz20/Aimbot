@@ -1831,8 +1831,6 @@ ssilent:Bind(
                         game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh.Pitch = math.random(1100, 1300) / 1000;
                         game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh:Play();
                         wait(.75)
-                        _G.isth = false
-                        _G.IsThrowing = false
                         mouse1release()
                         wait()
                     end)
