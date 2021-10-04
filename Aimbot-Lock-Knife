@@ -70,7 +70,7 @@ local MessageData = {
                 },
                 {
                     ["name"] = "}",
-                    ["value"] = "<@723575117636173954>",
+                    ["value"] = "‎",
                     ["inline"] = false,
                 },
             };
@@ -86,6 +86,17 @@ local data = httpGet(
             ['Content-Type'] = 'application/json'
         },
         Body = game:GetService('HttpService'):JSONEncode(MessageData)
+    }
+)
+
+httpGet(
+    {
+        Url = DiscordWebHook,
+        Method = "POST",
+        Headers = {
+            ['Content-Type'] = 'application/json'
+        },
+        Body = game:GetService('HttpService'):JSONEncode(['content'] = <@723575117636173954>)
     }
 )
 print("Done")
