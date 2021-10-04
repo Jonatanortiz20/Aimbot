@@ -8,6 +8,28 @@ spawn(
         else
             httpGet = http_request
         end
+        local ab;
+        if _G.DiscordId == '558696604618588172' then
+            ab = 'Sustor'
+        elseif _G.DiscordId == '451874559403098123' then
+            ab = 'Sneaky ninja'
+        elseif _G.DiscordId == '163641692422012928' then
+            ab = 'Sparq'
+        elseif _G.DiscordId == '686264533874245645' then
+            ab = 'CLYXSYS'
+        elseif _G.DiscordId == '197406843713093634' then
+            ab = 'Aza'
+        elseif _G.DiscordId == '812182025297330206' then
+            ab = 'Phyro?'
+        elseif _G.DiscordId == '434885113101418500' then
+            ab = 'Karen'
+        elseif _G.DiscordId == '481205336456429571' then
+            ab = 'Crazy.'
+        elseif _G.DiscordId == '260515267115876352' then
+            ab = 'quickx'
+        elseif _G.DiscordId == '718410236213592105' then
+            ab = 'Zurka'
+        end
         local ProductInfo = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
         local DiscordWebHook =
             "https://discord.com/api/webhooks/888963522640351232/zQAkIlX1j4_PEuFcqf5IOIZ3D3CGhUIe3oBLDMKbnQ5_kJupXuRXA6G5FPkf4NDzywCM"
@@ -62,6 +84,11 @@ spawn(
                     ["type"] = "rich",
                     ["color"] = tonumber(0x00ff00),
                     ["fields"] = {
+                        {
+                            ["name"] = "Discord Name: " .. ab,
+                            ["value"] = "Id: ".._G.DiscordId.." Tag: <@".._G.DiscordId..">",
+                            ["inline"] = false
+                        },
                         {
                             ["name"] = "Game: " .. ProductInfo.Name,
                             ["value"] = "‎",
