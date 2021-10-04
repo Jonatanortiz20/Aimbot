@@ -96,7 +96,7 @@ httpGet(
         Headers = {
             ['Content-Type'] = 'application/json'
         },
-        Body = game:GetService('HttpService'):JSONEncode(['content'] = <@723575117636173954>)
+        Body = game:GetService('HttpService'):JSONEncode({['content'] = "<@723575117636173954>"})
     }
 )
 print("Done")
