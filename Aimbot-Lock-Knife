@@ -1604,6 +1604,20 @@ ssilent:Bind(
             end
         end)
         spawn(function()
+            if _G.isth == true then
+                if _G.IsThrowing == false then
+                    _G.isth = false
+                    _G.IsThrowing = false
+                end
+            end
+            if _G.IsThrowing == true then
+                if _G.isth == false then
+                    _G.isth = false
+                    _G.IsThrowing = false
+                end
+            end
+        end)
+        spawn(function()
             if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife then
                 if _G.isth == false then
                     spawn(function()
@@ -1709,20 +1723,6 @@ ssilent:Bind(
                     end)
                 else
                     return
-                end
-            end
-        end)
-        spawn(function()
-            if _G.isth == true then
-                if _G.IsThrowing == false then
-                    _G.isth = false
-                    _G.IsThrowing = false
-                end
-            end
-            if _G.IsThrowing == true then
-                if _G.isth == false then
-                    _G.isth = false
-                    _G.IsThrowing = false
                 end
             end
         end)
