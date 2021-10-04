@@ -1696,28 +1696,30 @@ spawn(function()
     _G.IsThrowing = false
     local checkfo = function()
         spawn(function()
-            if _G.isth == true then
-                if _G.IsThrowing == false then
-                    _G.isth = false
-                    _G.IsThrowing = false
+            pcall(function()
+                if _G.isth == true then
+                    if _G.IsThrowing == false then
+                        _G.isth = false
+                        _G.IsThrowing = false
+                    end
                 end
-            end
-            if _G.IsThrowing == true then
-                if _G.isth == false then
-                    _G.isth = false
-                    _G.IsThrowing = false
-                end
-            end
-            if _G.isth == true then
                 if _G.IsThrowing == true then
-                    for i,v in pairs(Player.Backpack:GetChildren()) do
-                        if v:IsA("Tool") and v.Name == "Knife" then
-                            _G.isth = false
-                            _G.IsThrowing = false
+                    if _G.isth == false then
+                        _G.isth = false
+                        _G.IsThrowing = false
+                    end
+                end
+                if _G.isth == true then
+                    if _G.IsThrowing == true then
+                        for i,v in pairs(Player.Backpack:GetChildren()) do
+                            if v:IsA("Tool") and v.Name == "Knife" then
+                                _G.isth = false
+                                _G.IsThrowing = false
+                            end
                         end
                     end
                 end
-            end
+            end)
         end)
     end
 
