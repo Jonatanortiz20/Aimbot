@@ -1,3 +1,4 @@
+---Current
 spawn(
     function()
         local httpGet
@@ -668,10 +669,23 @@ hbee:Slider(
         hbeeZ = value
     end
 )
-
+local FileName = "Ai Assist.txt"
+local HttpService = game:GetService("HttpService")
+local SaveSettings = function(Text)
+    writefile(FileName, HttpService:JSONEncode(Text))
+    print("Saved Setting's!")
+end
+local SavedSettings;
+if isfile(FileName) then
+    SavedSettings = HttpService:JSONDecode(readfile(FileName))
+else
+	warn("Settings File Not Found!")
+end
+local hbeexecuted = false
 hbee:Button(
     "Hbe",
     function()
+		hbeexecuted = true
         spawn(
             function()
                 local TORSOSIZEEEE =
@@ -739,6 +753,103 @@ hbee:Button(
         )
     end
 )
+
+hbee:Button("Save Settings!",function()
+	print("Saving Settings..!")
+	if hbeexecuted == true then
+		local Configuraciones = {
+			hbeeX = hbeeX,
+			hbeeY = hbeeY,
+			hbeeZ = hbeeZ,
+			hbeeOn = hbeeOn,
+			hbeexecuted = hbeexecuted
+		}
+		SaveSettings(Configuraciones)
+	else
+		local Configuraciones = {
+			hbeeX = hbeeX,
+			hbeeY = hbeeY,
+			hbeeZ = hbeeZ,
+			hbeeOn = hbeeOn
+		}
+		SaveSettings(Configuraciones)
+	end
+end)
+
+hbee:Button("Load Settings!",function()
+	print("Loading Settigns...")
+	hbeeX = SavedSettings.hbeeX
+	hbeeY = SavedSettings.hbeeY
+	hbeeZ = SavedSettings.hbeeZ
+	hbeeOn = SavedSettings.hbeeOn
+	if SavedSettings.hbeexecuted == true then
+		spawn(
+            function()
+                local TORSOSIZEEEE =
+                    Vector3.new(
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.X,
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Y,
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Z
+                )
+                local gmt = getrawmetatable(game)
+                local oldindex = gmt.__index
+
+                if setreadonly then
+                    setreadonly(gmt, false)
+                else
+                    make_writeable(gmt, true)
+                end
+
+                gmt.__index =
+                    newcclosure(
+                    function(t, k)
+                        if type(t) == "userdata" and oldindex(t, "Name") == "HumanoidRootPart" and k == "Size" then
+                            return TORSOSIZEEEE
+                        end
+                        return oldindex(t, k)
+                    end
+                )
+
+                if setreadonly then
+                    setreadonly(gmt, true)
+                else
+                    make_writeable(gmt, false)
+                end
+                wait(2)
+                spawn(
+                    function()
+                        while wait(1) do
+                            wait()
+                            for i, v in next, game:GetService("Players"):GetPlayers() do
+                                if v ~= game:GetService("Players").LocalPlayer then
+                                    pcall(
+                                        function()
+                                            if game:GetService("Workspace")[v.Name].HumanoidRootPart then
+                                                if hbeeOn == true then
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Size =
+                                                        Vector3.new(hbeeX, hbeeY, hbeeZ)
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Material =
+                                                        "ForceField"
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
+                                                else
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Size =
+                                                        Vector3.new(2, 2, 1)
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Material =
+                                                        "ForceField"
+                                                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 1
+                                                end
+                                            end
+                                        end
+                                    )
+                                end
+                            end
+                        end
+                    end
+                )
+            end
+        )
+	end
+end)
 
 espsettings:Toggle(
     "Esp",
