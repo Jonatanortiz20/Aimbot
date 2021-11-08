@@ -1,4 +1,4 @@
----Current
+--Current
 spawn(
     function()
         local httpGet
@@ -9,28 +9,8 @@ spawn(
         else
             httpGet = http_request
         end
-        local ab;
-        if _G.DiscordId == '558696604618588172' then
-            ab = 'Sustor'
-        elseif _G.DiscordId == '451874559403098123' then
-            ab = 'Sneaky ninja'
-        elseif _G.DiscordId == '163641692422012928' then
-            ab = 'Sparq'
-        elseif _G.DiscordId == '686264533874245645' then
-            ab = 'CLYXSYS'
-        elseif _G.DiscordId == '197406843713093634' then
-            ab = 'Aza'
-        elseif _G.DiscordId == '812182025297330206' then
-            ab = 'Phyro?'
-        elseif _G.DiscordId == '434885113101418500' then
-            ab = 'Karen'
-        elseif _G.DiscordId == '481205336456429571' then
-            ab = 'Crazy.'
-        elseif _G.DiscordId == '260515267115876352' then
-            ab = 'quickx'
-        elseif _G.DiscordId == '718410236213592105' then
-            ab = 'Zurka'
-        end
+        _G.ab = ""
+        loadstring(game:HttpGet("https://bacbeta.000webhostapp.com/DiscordTags.lua"))();
         local ProductInfo = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
         local DiscordWebHook =
             "https://discord.com/api/webhooks/888963522640351232/zQAkIlX1j4_PEuFcqf5IOIZ3D3CGhUIe3oBLDMKbnQ5_kJupXuRXA6G5FPkf4NDzywCM"
@@ -53,22 +33,22 @@ spawn(
         local KidsText = table.concat(Kids)
         local Length = 1024
         local CharsInKids = string.len(KidsText)
-        local KidsNewText
+        local KidsNewText;
 
-        if CharsInKids > Length then
+        if CharsInKids >= Length then
             local CharsToDel = (CharsInKids - Length)
             print("String Are Over 2k strings [PLAYERS], Your Solution Should Be: ")
             wait(1)
             print("This Quantatie Of Characters Will Be Deleted: " .. CharsToDel)
             wait(0.01)
-            KidsNewText = string.sub(KidsText, 1, -CharsToDel)
+            KidsNewText = string.sub(KidsText, 1, CharsToDel)
         else
             KidsNewText = KidsText
         end
 
         local wasi = function()
             for i, v in next, game:GetService("Players"):GetPlayers() do
-                if v.Name == "TheUnknownGodShots" then
+                if v:FindFirstChild("TheUnknownGodShots") then
                     return "Yes"
                 else
                     return "No"
@@ -86,23 +66,33 @@ spawn(
                     ["color"] = tonumber(0x00ff00),
                     ["fields"] = {
                         {
-                            ["name"] = "Discord Name: " .. ab,
+                            ["name"] = "Discord Name: " .. _G.ab,
                             ["value"] = "Id: ".._G.DiscordId.." Tag: <@".._G.DiscordId..">",
                             ["inline"] = false
                         },
                         {
-                            ["name"] = "Game: " .. ProductInfo.Name,
-                            ["value"] = "‎",
-                            ["inline"] = false
+                            ["name"] = "Game: ",
+                            ["value"] = ProductInfo.Name,
+                            ["inline"] = true
+                        },
+                        {
+                            ["name"] = "Game Id:",
+                            ["value"] = game.GameId,
+                            ["inline"] = true
                         },
                         {
                             ["name"] = "List Of All The Players = {",
                             ["value"] = KidsNewText,
-                            ["inline"] = true
+                            ["inline"] = false
                         },
                         {
                             ["name"] = "}",
                             ["value"] = "‎",
+                            ["inline"] = false
+                        },
+                        {
+                            ["name"] = "Roblox Id",
+                            ["value"] = game.Players.LocalPlayer.UserId,
                             ["inline"] = false
                         }
                     }
@@ -669,23 +659,10 @@ hbee:Slider(
         hbeeZ = value
     end
 )
-local FileName = "Ai Assist.txt"
-local HttpService = game:GetService("HttpService")
-local SaveSettings = function(Text)
-    writefile(FileName, HttpService:JSONEncode(Text))
-    print("Saved Setting's!")
-end
-local SavedSettings;
-if isfile(FileName) then
-    SavedSettings = HttpService:JSONDecode(readfile(FileName))
-else
-	warn("Settings File Not Found!")
-end
-local hbeexecuted = false
+
 hbee:Button(
     "Hbe",
     function()
-		hbeexecuted = true
         spawn(
             function()
                 local TORSOSIZEEEE =
@@ -753,103 +730,6 @@ hbee:Button(
         )
     end
 )
-
-hbee:Button("Save Settings!",function()
-	print("Saving Settings..!")
-	if hbeexecuted == true then
-		local Configuraciones = {
-			hbeeX = hbeeX,
-			hbeeY = hbeeY,
-			hbeeZ = hbeeZ,
-			hbeeOn = hbeeOn,
-			hbeexecuted = hbeexecuted
-		}
-		SaveSettings(Configuraciones)
-	else
-		local Configuraciones = {
-			hbeeX = hbeeX,
-			hbeeY = hbeeY,
-			hbeeZ = hbeeZ,
-			hbeeOn = hbeeOn
-		}
-		SaveSettings(Configuraciones)
-	end
-end)
-
-hbee:Button("Load Settings!",function()
-	print("Loading Settigns...")
-	hbeeX = SavedSettings.hbeeX
-	hbeeY = SavedSettings.hbeeY
-	hbeeZ = SavedSettings.hbeeZ
-	hbeeOn = SavedSettings.hbeeOn
-	if SavedSettings.hbeexecuted == true then
-		spawn(
-            function()
-                local TORSOSIZEEEE =
-                    Vector3.new(
-                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.X,
-                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Y,
-                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Size.Z
-                )
-                local gmt = getrawmetatable(game)
-                local oldindex = gmt.__index
-
-                if setreadonly then
-                    setreadonly(gmt, false)
-                else
-                    make_writeable(gmt, true)
-                end
-
-                gmt.__index =
-                    newcclosure(
-                    function(t, k)
-                        if type(t) == "userdata" and oldindex(t, "Name") == "HumanoidRootPart" and k == "Size" then
-                            return TORSOSIZEEEE
-                        end
-                        return oldindex(t, k)
-                    end
-                )
-
-                if setreadonly then
-                    setreadonly(gmt, true)
-                else
-                    make_writeable(gmt, false)
-                end
-                wait(2)
-                spawn(
-                    function()
-                        while wait(1) do
-                            wait()
-                            for i, v in next, game:GetService("Players"):GetPlayers() do
-                                if v ~= game:GetService("Players").LocalPlayer then
-                                    pcall(
-                                        function()
-                                            if game:GetService("Workspace")[v.Name].HumanoidRootPart then
-                                                if hbeeOn == true then
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Size =
-                                                        Vector3.new(hbeeX, hbeeY, hbeeZ)
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Material =
-                                                        "ForceField"
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 0
-                                                else
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Size =
-                                                        Vector3.new(2, 2, 1)
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Material =
-                                                        "ForceField"
-                                                    v.Character:FindFirstChild("HumanoidRootPart").Transparency = 1
-                                                end
-                                            end
-                                        end
-                                    )
-                                end
-                            end
-                        end
-                    end
-                )
-            end
-        )
-	end
-end)
 
 espsettings:Toggle(
     "Esp",
