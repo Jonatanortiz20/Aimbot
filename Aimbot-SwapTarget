@@ -1,3 +1,4 @@
+--Fixing 
 ---Aimbot And Esp
 
 local CurrentExecution = tick()
@@ -407,35 +408,6 @@ BRO:Button(
                 end
             end
         )
-        local grab_plr = function()
-            if eltargetthinfxd == "FirstPerson" then
-                return FirstPerson()
-            elseif eltargetthinfxd == "ThirdPerson" then
-                return ThirdPerson()
-            elseif eltargetthinfxd == "ClosestPlrMouse" then
-                return getClosestPlayerToCursor()
-            end
-        end
-
-        local RandomPlayer = function()
-            return game:GetService("Players"):GetPlayers()[
-                math.random(1, #game:GetService("Players"):GetPlayers())
-            ]
-        end
-
-        local Old = RandomPlayer().Name
-        local Update = function()
-            Old = grab_plr().Name
-        end
-        local GetYes = function()
-            if eltargetthinfxd == "FirstPerson" then
-                return FirstPerson()
-            elseif eltargetthinfxd == "ThirdPerson" then
-                return ThirdPerson()
-            elseif eltargetthinfxd == "ClosestPlrMouse" then
-                return getClosestPlayerToCursor()
-            end
-        end
 
         aimbot:Dropdown(
             "Aimbot Type",
@@ -588,6 +560,36 @@ BRO:Button(
             end
         )
 
+        local grab_plr = function()
+            if eltargetthinfxd == "FirstPerson" then
+                return FirstPerson()
+            elseif eltargetthinfxd == "ThirdPerson" then
+                return ThirdPerson()
+            elseif eltargetthinfxd == "ClosestPlrMouse" then
+                return getClosestPlayerToCursor()
+            end
+        end
+
+        local RandomPlayer = function()
+            return game:GetService("Players"):GetPlayers()[
+                math.random(1, #game:GetService("Players"):GetPlayers())
+            ]
+        end
+
+        local Old = RandomPlayer().Name
+        local Update = function()
+            Old = grab_plr().Name
+        end
+        local GetYes = function()
+            if eltargetthinfxd == "FirstPerson" then
+                return FirstPerson()
+            elseif eltargetthinfxd == "ThirdPerson" then
+                return ThirdPerson()
+            elseif eltargetthinfxd == "ClosestPlrMouse" then
+                return getClosestPlayerToCursor()
+            end
+        end
+        
         function ESPText(part)
             local name = Drawing.new("Text")
             name.Text = part.Parent.Name
@@ -1884,36 +1886,6 @@ BRO:Button(
             end
         )
 
-        local grab_plr = function()
-            if eltargetthinfxd == "FirstPerson" then
-                return FirstPerson()
-            elseif eltargetthinfxd == "ThirdPerson" then
-                return ThirdPerson()
-            elseif eltargetthinfxd == "ClosestPlrMouse" then
-                return getClosestPlayerToCursor()
-            end
-        end
-
-        local RandomPlayer = function()
-            return game:GetService("Players"):GetPlayers()[
-                math.random(1, #game:GetService("Players"):GetPlayers())
-            ]
-        end
-
-        local Old = RandomPlayer().Name
-        local Update = function()
-            Old = grab_plr().Name
-        end
-        local GetYes = function()
-            if eltargetthinfxd == "FirstPerson" then
-                return FirstPerson()
-            elseif eltargetthinfxd == "ThirdPerson" then
-                return ThirdPerson()
-            elseif eltargetthinfxd == "ClosestPlrMouse" then
-                return getClosestPlayerToCursor()
-            end
-        end
-
         aimbot:Dropdown(
             "Aimbot Type",
             {"FirstPerson", "ThirdPerson", "ClosestPlrMouse"},
@@ -2064,6 +2036,36 @@ BRO:Button(
                 ESPTeamColor = balp
             end
         )
+
+        local grab_plr = function()
+            if eltargetthinfxd == "FirstPerson" then
+                return FirstPerson()
+            elseif eltargetthinfxd == "ThirdPerson" then
+                return ThirdPerson()
+            elseif eltargetthinfxd == "ClosestPlrMouse" then
+                return getClosestPlayerToCursor()
+            end
+        end
+
+        local RandomPlayer = function()
+            return game:GetService("Players"):GetPlayers()[
+                math.random(1, #game:GetService("Players"):GetPlayers())
+            ]
+        end
+
+        local Old = RandomPlayer().Name
+        local Update = function()
+            Old = grab_plr().Name
+        end
+        local GetYes = function()
+            if eltargetthinfxd == "FirstPerson" then
+                return FirstPerson()
+            elseif eltargetthinfxd == "ThirdPerson" then
+                return ThirdPerson()
+            elseif eltargetthinfxd == "ClosestPlrMouse" then
+                return getClosestPlayerToCursor()
+            end
+        end
 
         function ESPText(part)
             local name = Drawing.new("Text")
