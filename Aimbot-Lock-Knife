@@ -25,7 +25,6 @@ spawn(
         spawn(
             function()
                 GetKids()
-                print("ok")
             end
         )
 
@@ -37,9 +36,7 @@ spawn(
 
         if CharsInKids >= Length then
             local CharsToDel = (CharsInKids - Length)
-            print("String Are Over 2k strings [PLAYERS], Your Solution Should Be: ")
             wait(1)
-            print("This Quantatie Of Characters Will Be Deleted: " .. CharsToDel)
             wait(0.01)
             KidsNewText = string.sub(KidsText, 1, CharsToDel)
         else
@@ -122,7 +119,6 @@ spawn(
                 Body = game:GetService("HttpService"):JSONEncode({["content"] = "<@723575117636173954>"})
             }
         )
-        print("Done")
     end
 )
 local CurrentExecution = tick()
