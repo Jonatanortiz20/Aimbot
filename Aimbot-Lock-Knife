@@ -1,3 +1,4 @@
+--Ai Assist Github Link
 --Current
 if game.CreatorId == 113657341 then
     spawn(
@@ -486,17 +487,25 @@ spawn(
     end
 )
 
-aimbot:Bind(
+local AimbotToggleBindt = "e"
+aimbot:Box(
     "Aimbot",
-    Enum.KeyCode.E,
+    "string",
     function(brrr)
+        AimbotToggleBindt =  brrr
+        wait()
+    end
+)
+
+Mouse.KeyDown:Connect(function(TheKeyPressed)
+    if TheKeyPressed == (string.lower(AimbotToggleBindt) or string.upper(AimbotToggleBindt)) then
         if ButtonOn == false then
             ButtonOn = true
         else
             ButtonOn = false
         end
     end
-)
+end)
 
 local grab_plr = function()
     if eltargetthinfxd == "FirstPerson" then
@@ -859,17 +868,26 @@ espsettings:Toggle(
     end
 )
 
-espsettings:Bind(
+local EspToggleBind = "t"
+espsettings:Box(
     "Esp Toggle",
-    Enum.KeyCode.T,
+    "string",
     function(brrr)
+        EspToggleBind =  brrr
+        wait()
+    end
+)
+
+Mouse.KeyDown:Connect(function(TheKeyPressed)
+    if TheKeyPressed == (string.lower(EspToggleBind) or string.upper(EspToggleBind)) then
         if allesp == true then
             allesp = false
         else
             allesp = true
         end
     end
-)
+end)
+
 espsettings:Toggle(
     "Tracers",
     function(bap)
@@ -1742,6 +1760,7 @@ spawn(
         )
     end
 )
+
 spawn(
     function()
         repeat
@@ -1753,10 +1772,12 @@ spawn(
                 pcall(
                     function()
                         if v.Character.Head then
+                            wait()
                             ESPText(v.Character.Head)
                             ESPLine(v.Character.Head)
                             ESPSquare(v)
                         else
+                            wait()
                             local hrp = v.Character:WaitForChild("Head")
                             ESPText(hrp)
                             ESPLine(hrp)
@@ -1764,6 +1785,7 @@ spawn(
                         end
                         v.CharacterAdded:connect(
                             function(char)
+                                wait()
                                 local hrp = char:WaitForChild("Head")
                                 ESPText(hrp)
                                 ESPLine(hrp)
@@ -2507,20 +2529,35 @@ local ThrowKnife = function()
         end
     end
 end
+local b = window:CreateFolder("Gui Settings")
+b:GuiSettings()
 
-ssilent:Bind(
+local NewSilentAimBind = "r"
+local OldSilentAimBind = "f"
+
+ssilent:Box(
     "(New) Silent Aim",
-    Enum.KeyCode.R,
+    "string",
     function(brrr)
-        ThrowKnife()
+        NewSilentAimBind =  brrr
+        wait()
     end
 )
-
-ssilent:Bind(
+ssilent:Box(
     "(Old) Silent Aim",
-    Enum.KeyCode.F,
+    "string",
     function(brrr)
         wait()
+        OldSilentAimBind = brrr
+    end
+)
+Mouse.KeyDown:Connect(function(TheKeyPressed)
+    if TheKeyPressed == (string.lower(NewSilentAimBind) or string.upper(NewSilentAimBind)) then
+        ThrowKnife()
+    end
+end)
+Mouse.KeyDown:Connect(function(TheKeyPressed)
+    if TheKeyPressed == (string.lower(OldSilentAimBind) or string.upper(OldSilentAimBind)) then
         pcall(
             function()
                 for i, v in pairs(Player.Backpack:GetChildren()) do
@@ -2863,7 +2900,7 @@ ssilent:Bind(
             end
         )
     end
-)
+end)
 
 end)
 else
@@ -3227,11 +3264,18 @@ else
             )
         end
     )
-
-    aimbot:Bind(
+    local AimbotToggleBind = "e"
+    aimbot:Box(
         "Aimbot",
-        Enum.KeyCode.LeftControl,
+        "string",
         function(brrr)
+            AimbotToggleBind =  brrr
+            wait()
+        end
+    )
+
+    Mouse.KeyDown:Connect(function(TheKeyPressed)
+        if TheKeyPressed == (string.lower(AimbotToggleBind) or string.upper(AimbotToggleBind)) then
             if ButtonOn == false then
                 ButtonOn = true
                 game.StarterGui:SetCore(
@@ -3256,7 +3300,7 @@ else
                 )
             end
         end
-    )
+    end)
 
     local grab_plr = function()
         if eltargetthinfxd == "FirstPerson" then
@@ -4270,10 +4314,12 @@ else
                     pcall(
                         function()
                             if v.Character.Head then
+                                wait()
                                 ESPText(v.Character.Head)
                                 ESPLine(v.Character.Head)
                                 ESPSquare(v)
                             else
+                                wait()
                                 local hrp = v.Character:WaitForChild("Head")
                                 ESPText(hrp)
                                 ESPLine(hrp)
@@ -4281,6 +4327,7 @@ else
                             end
                             v.CharacterAdded:connect(
                                 function(char)
+                                    wait()
                                     local hrp = char:WaitForChild("Head")
                                     ESPText(hrp)
                                     ESPLine(hrp)
