@@ -188,7 +188,7 @@ if game.CreatorId == 113657341 then
             local ButtonOn = false
             local lp = safe.Players.LocalPlayer
             local lpc = safe.Players.LocalPlayer.Character
-            local MAXDISTANCE = 400
+            local MAXDISTANCE = 239
             local tracers = true
             local CreateTextboxes = true
             local names = true
@@ -1764,8 +1764,6 @@ if game.CreatorId == 113657341 then
             end)
         end)
     end)
-end)
-
 else
     local CurrentExecution = tick()
     local safe =
