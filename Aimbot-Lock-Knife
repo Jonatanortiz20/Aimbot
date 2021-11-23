@@ -137,6 +137,7 @@ if game.CreatorId == 113657341 then
 			local aimbot = window:CreateFolder("Assistance Settings")
 			local hbee = window:CreateFolder("H-B-E Settings")
 			local ssilent = window:CreateFolder("Discret Silent-Aim Settings")
+			local STABASS = window:CreateFolder("Stab Assistance")
 			local fpsboost = window:CreateFolder("Frames Per Second Upgrader")
 			local showclan = window:CreateFolder("Clan Points ui")
 			local espsettings = window:CreateFolder("Extra-Sensory-Perception (ESP)")
@@ -154,6 +155,8 @@ if game.CreatorId == 113657341 then
 			local ok = ployer.Character:WaitForChild("Humanoid")
 			local localPlayer = game:GetService("Players").LocalPlayer
 			local currentCamera = game:GetService("Workspace").CurrentCamera
+			local Players = game:GetService("Players")
+			local localPlayer = Players.LocalPlayer
 			local Work = game:GetService("Workspace")
 			local player = game:GetService("Players").LocalPlayer
 			local Players = game:GetService("Players")
@@ -164,6 +167,7 @@ if game.CreatorId == 113657341 then
 			local Char = ployer.Character:FindFirstChild("Humanoid")
 			local ok = ployer.Character:WaitForChild("Humanoid")
 			local smoothness = 0
+			local StabbingAssistance = false;
 			local hitp = "Head"
 			local smoothness = 0
 			local aimbotxpos = 0
@@ -248,6 +252,28 @@ if game.CreatorId == 113657341 then
 				return #currentCamera:GetPartsObscuringTarget({p}, {currentCamera, safe.Players.LocalPlayer.Character, ...}) == 0
 			end
 
+			local getClosestPlayer = function() [nonamecall]
+				local closestPlayer = nil
+				local shortestDistance = math.huge
+
+				for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+					pcall(function()
+						if v.Name ~= localPlayer.Name then
+							if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Head") then
+								local magnitude = (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).magnitude
+
+								if magnitude < shortestDistance then
+									closestPlayer = v
+									shortestDistance = magnitude
+								end
+							end
+						end
+					end)
+				end
+
+				return closestPlayer or localPlayer
+			end
+			
 			local FirstPerson = function() [nonamecall]
 				local plrs, v = safe.Players:GetPlayers()
 				local maxdist = 75
@@ -408,7 +434,17 @@ if game.CreatorId == 113657341 then
 				end
 				return plr, dist
 			end
-
+			
+			local CheckKnife = function()
+				for i,v in pairs(Player.Backpack:GetChildren()) do
+					if v:IsA("Tool") and v.Name == "Knife" then
+						return true
+					else
+						return false
+					end
+				end 
+			end
+			
 			local MyTarget = function()
 				local Target = nil
 				local TargetName = nil
@@ -459,7 +495,7 @@ if game.CreatorId == 113657341 then
 			end)
 
 			local AimbotToggleBindt = "e"
-			aimbot:Box("Aimbot","string",function(brrr)
+			aimbot:Box("Ai","string",function(brrr)
 				AimbotToggleBindt =  brrr
 				wait()
 			end)
@@ -683,7 +719,7 @@ if game.CreatorId == 113657341 then
 				end
 			end)
 
-			aimbot:Dropdown("Aimbot Type",{"FirstPerson", "ThirdPerson", "ClosestPlrMouse"},true,function(okk)
+			aimbot:Dropdown("Ai Type",{"FirstPerson", "ThirdPerson", "ClosestPlrMouse"},true,function(okk)
 				eltargetthinfxd = okk
 			end)
 
@@ -703,7 +739,11 @@ if game.CreatorId == 113657341 then
 			aimbot:Toggle("Show FOV Assisting",function(bap)
 				showfovaimbot = bap
 			end)
-
+			
+			STABASS:Toggle("Assistance?",function(valuetochnage)
+				StabbingAssistance = valuetochnage
+			end)
+			
 			aimbot:Slider("FOV Size",0,1000,true,function(value)
 				MAXDISTANCE = value
 			end)
@@ -774,10 +814,10 @@ if game.CreatorId == 113657341 then
 										players.Character.HumanoidRootPart.Size = Vector3.new(hbeeX, hbeeY, hbeeZ)
 										players.Character.HumanoidRootPart.Material = "ForceField"
 										if _G.Recording == true then
-										players.Character.HumanoidRootPart.Transparency = 1
-									else
-										players.Character.HumanoidRootPart.Transparency = 0
-									end
+											players.Character.HumanoidRootPart.Transparency = 1
+										else
+											players.Character.HumanoidRootPart.Transparency = 0
+										end
 									end
 								end
 							end
@@ -856,10 +896,10 @@ if game.CreatorId == 113657341 then
 								players.Character.HumanoidRootPart.Size = Vector3.new(hbeeX, hbeeY, hbeeZ)
 								players.Character.HumanoidRootPart.Material = "ForceField"
 								if _G.Recording == true then
-										players.Character.HumanoidRootPart.Transparency = 1
-									else
-										players.Character.HumanoidRootPart.Transparency = 0
-									end
+									players.Character.HumanoidRootPart.Transparency = 1
+								else
+									players.Character.HumanoidRootPart.Transparency = 0
+								end
 								players.CharacterAdded:Connect(function(charr)
 									ToDoAfterCharacterFound(charr)
 								end)
@@ -971,10 +1011,10 @@ if game.CreatorId == 113657341 then
 										players.Character.HumanoidRootPart.Size = Vector3.new(hbeeX, hbeeY, hbeeZ)
 										players.Character.HumanoidRootPart.Material = "ForceField"
 										if _G.Recording == true then
-										players.Character.HumanoidRootPart.Transparency = 1
-									else
-										players.Character.HumanoidRootPart.Transparency = 0
-									end
+											players.Character.HumanoidRootPart.Transparency = 1
+										else
+											players.Character.HumanoidRootPart.Transparency = 0
+										end
 										players.CharacterAdded:Connect(function(charr)
 											ToDoAfterCharacterFound(charr)
 										end)
@@ -1743,6 +1783,85 @@ if game.CreatorId == 113657341 then
 					end
 				end
 			end
+			spawn(function()
+				local Stab = function()
+					pcall(function()
+						local DownStab;
+						local StabPunch;
+						local ThrowCharge;
+						local Throw;
+						local DualEquip;
+
+						if game.Players.LocalPlayer.Character:FindFirstChild("UpperTorso") then
+							DownStab = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("R15Animations").DownStab)
+							StabPunch = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("R15Animations").StabPunch)
+							ThrowCharge = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("R15Animations").ThrowCharge)
+							Throw = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("R15Animations").Throw)
+							DualEquip = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("R15Animations").DualEquip)
+						else
+							DownStab = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.DownStab)
+							StabPunch = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("StabPunch"))
+							ThrowCharge = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("ThrowCharge") )
+							Throw = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("Throw"))
+							DualEquip = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("DualEquip"))
+						end;
+
+						local v15 = tick();
+						game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh.Pitch = math.random(1100, 1300) / 1000;
+						game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Handle.Swoosh:Play();
+
+						if math.random(3) == 1 and not game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife:FindFirstChild("noDownStab") then
+							local Gripxd = game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Grip;
+							coroutine.wrap(function()
+								game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Grip = Gripxd * CFrame.Angles(math.pi, 0, 0);
+								wait(0.6);
+								game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Grip = Gripxd;
+							end)();
+							DownStab:Play(0.1, 1, 1.5);
+						else
+							StabPunch:Play(0.1, 1, 1.5);
+						end;
+						game.Players.LocalPlayer.PlayerScripts.localknifehandler.HitCheck:Fire(getClosestPlayer().Character);
+					end)
+				end
+
+
+				spawn(function()
+					while wait() do
+						pcall(function()
+							if localPlayer:DistanceFromCharacter(getClosestPlayer().Character.HumanoidRootPart.Position) <= 6 then
+								spawn(function()
+									pcall(function()
+										if game:GetService("Workspace")[game:GetService("Players").LocalPlayer.Name].Knife.Parent.Parent == game:GetService("Workspace") then
+											if StabbingAssistance == true then
+												Stab()
+											end
+										end
+									end)
+								end)
+								spawn(function()
+									pcall(function()
+										if CheckKnife() == true then
+											for i= 1,1 do 
+												for i,v in pairs(Player.Backpack:GetChildren()) do
+													if v:IsA("Tool") and v.Name == "Knife" then
+														Player.Character.Humanoid:EquipTool(v)
+													end
+												end
+											end
+											wait()
+											if StabbingAssistance == true then
+												Stab()
+											end
+										end
+									end)
+								end)
+								wait(.50)
+							end
+						end)
+					end	
+				end)
+			end)
 			local b = window:CreateFolder("Gui Settings")
 			b:GuiSettings()
 
@@ -1838,7 +1957,7 @@ if game.CreatorId == 113657341 then
 					if args1 == "Hide" then
 						for i,v in ipairs(game:GetService("CoreGui"):GetChildren()) do
 							wait()
-							if v.DataCost == 4435 then
+							if v.DataCost == 4561 then
 								v.Parent = TempGui
 								wait()
 								TempGui.Parent = game:GetService("ReplicatedStorage")
@@ -1848,7 +1967,7 @@ if game.CreatorId == 113657341 then
 					else
 						for i,v in ipairs(game:GetService("ReplicatedStorage").HideMe:GetChildren()) do
 							wait()
-							if v.DataCost == 4435 then
+							if v.DataCost == 4561 then
 								v.Parent = game:GetService("CoreGui")
 								game:GetService("ReplicatedStorage").HideMe.Parent = game:GetService("CoreGui")
 							end
